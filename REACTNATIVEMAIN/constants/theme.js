@@ -41,7 +41,6 @@ export const SIZES = {
     body2: 20,
     body3: 16,
     body4: 14,
-
     // app dimensions
     width,
     height,
@@ -50,6 +49,8 @@ export const SIZES = {
     LOGO_WIDTH: 220,
     LOGO_HEIGHT: 40,
     DOT_SIZE: 40,
+    TICKER_HEIGHT: 40,
+    CIRCLE_SIZE: width * 0.6,
 };
 
 export const FONTS = {
