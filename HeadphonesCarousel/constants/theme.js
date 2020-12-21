@@ -47,9 +47,6 @@ export const SIZES = {
     height,
 
     // custom size
-    LOGO_WIDTH: 220,
-    LOGO_HEIGHT: 40,
-    DOT_SIZE: 40,
 };
 
 export const FONTS = {
