@@ -47,7 +47,6 @@ export const SIZES = {
     height,
 
     // custom size
-    BASE: width * 0.9,
 };
 
 export const FONTS = {
