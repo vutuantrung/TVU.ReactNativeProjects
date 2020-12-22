@@ -46,11 +46,8 @@ export const SIZES = {
     height,
 
     // custom size
-    LOGO_WIDTH: 220,
-    LOGO_HEIGHT: 40,
-    DOT_SIZE: 40,
-    TICKER_HEIGHT: 40,
-    CIRCLE_SIZE: width * 0.6,
+    ITEM_WIDTH: width * 0.76,
+    ITEM_HEIGHT: width * 0.76 * 1.47
 };
 
 export const FONTS = {

@@ -1,104 +1,57 @@
 import React from 'react';
-import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 import { Animated, StyleSheet, StatusBar, Text, View, FlatList, Image, } from 'react-native';
+import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 
-
-const Item = ({ imageUri, heading, description, index, scrollX }) => {
-
-    const inputRange = [
-        (index - 1) * SIZES.width,
-        index * SIZES.width,
-        (index + 1) * SIZES.width
-    ];
-    const inputRangeOpacity = [
-        (index - 0.3) * SIZES.width,
-        index * SIZES.width,
-        (index + 0.3) * SIZES.width
-    ];
-    const scale = scrollX.interpolate({
-        inputRange,
-        outputRange: [0, 1, 0],
-    });
-    const translateXHeading = scrollX.interpolate({
-        inputRange,
-        outputRange: [SIZES.width * 0.2, 0, -SIZES.width * 0.2],
-    });
-    const translateXDescription = scrollX.interpolate({
-        inputRange,
-        outputRange: [SIZES.width * 0.7, 0, -SIZES.width * 0.7],
-    });
-    const opacity = scrollX.interpolate({
-        inputRange: inputRangeOpacity,
-        outputRange: [0, 1, 0],
-    });
-
-
+function Item({ photo, avatarUrl }) {
     return (
-        <View style={styles.itemStyle}>
-            <Animated.Image
-                source={imageUri}
-                style={
-                    [
-                        styles.imageStyle,
-                        { transform: [{ scale }] }
-                    ]
-                } />
-            <View style={styles.textContainer}>
-                <Animated.Text
-                    style={[
-                        styles.heading,
-                        {
-                            opacity,
-                            transform: [{ translateX: translateXHeading }],
-                        }
-                    ]}>{heading}</Animated.Text>
-                <Animated.Text
-                    style={[
-                        styles.description,
-                        {
-                            opacity,
-                            transform: [{ translateX: translateXDescription }],
-                        }
-                    ]}>{description}</Animated.Text>
+        <View style={styles.container}>
+            <View style={styles.imageWrapperStyle}>
+                <View style={styles.imageBorderStyle} >
+                    <Image source={{ uri: photo }} style={styles.imageStyle} />
+                </View>
+                <Image source={{ uri: avatarUrl }} style={styles.avatarStyle} />
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    itemStyle: {
+    container: {
         width: SIZES.width,
-        height: SIZES.height,
-        alignItems: 'center',
         justifyContent: 'center',
-    },
-    textContainer: {
-        alignItems: 'flex-start',
-        alignSelf: 'flex-end',
-        flex: 0.5,
-    },
-    heading: {
-        color: '#444',
-        textTransform: 'uppercase',
-        fontSize: 24,
-        fontWeight: '800',
-        letterSpacing: 2,
-        marginBottom: 5,
-    },
-    description: {
-        color: '#ccc',
-        fontWeight: '600',
-        textAlign: 'left',
-        width: SIZES.width * 0.75,
-        marginRight: 10,
-        fontSize: 16,
-        lineHeight: 16 * 1.5,
+        alignItems: 'center',
     },
     imageStyle: {
-        width: SIZES.width * 0.75,
-        height: SIZES.width * 0.75,
-        resizeMode: 'contain',
-        flex: 1,
+        width: SIZES.ITEM_WIDTH * 1.4,
+        height: SIZES.ITEM_HEIGHT,
+        resizeMode: 'cover',
+    },
+    imageWrapperStyle: {
+        shadowOffset: {
+            width: 0,
+            height: 20
+        },
+        shadowColor: '#000',
+        shadowOpacity: 1,
+        // For android devices
+        elevation: 20,
+    },
+    imageBorderStyle: {
+        width: SIZES.ITEM_WIDTH,
+        height: SIZES.ITEM_HEIGHT,
+        overflow: 'hidden',
+        alignItems: 'center',
+        borderRadius: 20,
+    },
+    avatarStyle: {
+        width: 60,
+        height: 60,
+        borderRadius: 60,
+        borderWidth: 6,
+        borderColor: 'white',
+        position: 'absolute',
+        bottom: -30,
+        right: 60,
     },
 })
 
