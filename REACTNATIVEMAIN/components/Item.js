@@ -2,12 +2,30 @@ import React from 'react';
 import { Animated, StyleSheet, StatusBar, Text, View, FlatList, Image, } from 'react-native';
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 
-function Item({ photo, avatarUrl }) {
+function Item({ photo, avatarUrl, index, scrollX }) {
+    const inputRange = [
+        (index - 1) * SIZES.width,
+        index * SIZES.width,
+        (index + 1) * SIZES.width
+    ]
+
+    const translateX = scrollX.interpolate({
+        inputRange,
+        outputRange: [-SIZES.width * 0.7, 0, SIZES.width * 0.7]
+    })
+
     return (
         <View style={styles.container}>
             <View style={styles.imageWrapperStyle}>
                 <View style={styles.imageBorderStyle} >
-                    <Image source={{ uri: photo }} style={styles.imageStyle} />
+                    <Animated.Image source={{ uri: photo }} style={{
+                        width: SIZES.ITEM_WIDTH * 1.4,
+                        height: SIZES.ITEM_HEIGHT,
+                        resizeMode: 'cover',
+                        transform: [{
+                            translateX,
+                        }]
+                    }} />
                 </View>
                 <Image source={{ uri: avatarUrl }} style={styles.avatarStyle} />
             </View>

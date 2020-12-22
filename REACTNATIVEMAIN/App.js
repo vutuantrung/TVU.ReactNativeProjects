@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Animated, StyleSheet, StatusBar, Text, View, FlatList, Image, } from 'react-native';
 import { COLORS, FONTS, SIZES, icons, images } from './constants';
 import Item from './components/Item';
@@ -20,19 +20,23 @@ const data = images.sources.map((image, index) => ({
 }));
 
 const App = () => {
+  const scrollX = useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      <FlatList
+      <Animated.FlatList
         data={data}
         showsHorizontalScrollIndicator={false}
         horizontal
         keyExtractor={item => item.key}
         pagingEnabled
-        renderItem={({ item, index }) =>
-        (
-          <Item photo={item.photo} avatarUrl={item.avatar_url} />
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
         )}
+        renderItem={({ item, index }) => {
+          return <Item photo={item.photo} avatarUrl={item.avatar_url} index={index} scrollX={scrollX} />
+        }}
       />
     </View>
   );
